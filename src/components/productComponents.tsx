@@ -4,23 +4,21 @@ import { FlatList, Image, StyleSheet, Text, Touchable, TouchableOpacity, View } 
 
 export const ProductItem: FC<any> = ({ product, navigation }): JSX.Element => {
   return (
-    <TouchableOpacity onPress={()=>{
-      navigation.navigate("ProductDetail", {id: product.id})
-    }}>
-      <View style={styles.productItemContainer}>
-        <Image
-          style={styles.productImage}
-          source={{ uri: product.thumbnail.url }}
-        />
-        <View>
-          <Text>{product.name}</Text>
-          <Text style={styles.pricingText}>
-            {' '}
-            ${product.pricing.priceRange.start.gross.amount}
-          </Text>
-        </View>
+
+    <View style={styles.productItemContainer}>
+      <Image
+        style={styles.productImage}
+        source={{ uri: product.thumbnail.url }}
+      />
+      <View>
+        <Text>{product.name}</Text>
+        <Text style={styles.pricingText}>
+          {' '}
+          ${product.pricing.priceRange.start.gross.amount}
+        </Text>
       </View>
-    </TouchableOpacity>
+    </View>
+
   );
 };
 
@@ -38,7 +36,9 @@ export default function ProductList({ navigation }: any) {
     <FlatList
       data={data.products.edges}
       renderItem={({ item }) => {
-        return <ProductItem navigation={navigation} key={item.node.id} product={item.node} />;
+        return (<TouchableOpacity onPress={() => { navigation.navigate("ProductDetail", { id: item.node.id }) }}>
+          <ProductItem navigation={navigation} key={item.node.id} product={item.node} />
+        </TouchableOpacity>);
       }}
     />
   );
