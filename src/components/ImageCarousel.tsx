@@ -5,7 +5,7 @@ import Carousel from "pinar";
 
 const ImageCarousel: FC<any> = ({ media }) => {
     return <View style={styles.carouselContainer}>
-        <Carousel showsDots={false}>
+        <Carousel >
             {media.map((item: any) =>
             (
                 <Image

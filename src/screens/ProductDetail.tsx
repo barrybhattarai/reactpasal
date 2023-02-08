@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import ImageCarousel from '../components/ImageCarousel';
+import Icon from "react-native-vector-icons/Foundation";
 
 const ProductDetail = ({ route }: any) => {
 
@@ -16,20 +17,20 @@ const ProductDetail = ({ route }: any) => {
   if (error) return <Text>{error.message}</Text>
 
   return (<View style={styles.productDetailContainer} >
+    {data.product.pricing.onSale && <Icon style={styles.saleIcon} name='burst-sale' color={"red"} size={40} />}
     <ImageCarousel media={data.product.media} />
+    <View>
+
+      <Text></Text>
+      <Text></Text>
+    </View>
   </View>);
 }
 
 const styles = StyleSheet.create({
   productDetailContainer: {
     flex: 1,
-  },
-  productImage: {
-    width: "100%",
-    height: 250,
-    resizeMode: 'contain',
-    marginTop: 10
-
+    // position:"relative"
   },
   loadingIndicator: {
     flex: 1,
@@ -37,6 +38,12 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: 'center',
     alignItems: "center"
+
+  },
+  saleIcon: {
+    position: "absolute",
+    top: 10,
+    right: 10
 
   }
 });

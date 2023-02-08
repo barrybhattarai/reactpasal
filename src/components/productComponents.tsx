@@ -24,7 +24,7 @@ export const ProductItem: FC<any> = ({ product, navigation }): JSX.Element => {
 
 export default function ProductList({ navigation }: any) {
   const { loading, data, error } = useQuery(PRODUCT_QUERY, {
-    variables: { channel: 'default-channel', first: 10 },
+    variables: { channel: 'default-channel', first: 50 },
   });
   if (loading) {
     return <Text>Loading...</Text>;
