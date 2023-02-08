@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import ImageCarousel from '../components/ImageCarousel';
 
 const ProductDetail = ({ route }: any) => {
 
@@ -15,7 +16,7 @@ const ProductDetail = ({ route }: any) => {
   if (error) return <Text>{error.message}</Text>
 
   return (<View style={styles.productDetailContainer} >
-    <Image source={{ uri: data.product.media[0].url }} style={styles.productImage} />
+    <ImageCarousel media={data.product.media} />
   </View>);
 }
 
@@ -32,6 +33,8 @@ const styles = StyleSheet.create({
   },
   loadingIndicator: {
     flex: 1,
+    width: "100%",
+    height: "100%",
     justifyContent: 'center',
     alignItems: "center"
 
