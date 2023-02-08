@@ -36,7 +36,7 @@ export default function ProductList({ navigation }: any) {
     <FlatList
       data={data.products.edges}
       renderItem={({ item }) => {
-        return (<TouchableOpacity onPress={() => { navigation.navigate("ProductDetail", { id: item.node.id }) }}>
+        return (<TouchableOpacity onPress={() => { navigation.navigate("ProductDetail", { product: item.node }) }}>
           <ProductItem navigation={navigation} key={item.node.id} product={item.node} />
         </TouchableOpacity>);
       }}

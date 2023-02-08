@@ -1,14 +1,14 @@
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Home from './src/screens/HomeScreen';
 import ProductDetail from './src/screens/ProductDetail';
 
 export type RootStackParamList = {
   Home: undefined;
-  ProductDetail: {product: any};
+  ProductDetail: { product: any };
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -24,7 +24,14 @@ function App(): JSX.Element {
       <NavigationContainer>
         <RootStack.Navigator initialRouteName="Home">
           <RootStack.Screen name="Home" component={Home} />
-          <RootStack.Screen name="ProductDetail" component={ProductDetail} />
+
+          <RootStack.Screen name="ProductDetail" component={ProductDetail}
+            options={
+              ({ route }) => ({ title: route.params.product.name })
+            }
+          />
+
+
         </RootStack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

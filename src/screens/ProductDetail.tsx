@@ -4,7 +4,9 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 
 const ProductDetail = ({ route }: any) => {
 
-  const { error, loading, data } = useQuery(GET_PRODUCT_DETAIL, { variables: { id: route.params.id, channel: "default-channel" } })
+  const productProps = route.params.product;
+
+  const { error, loading, data } = useQuery(GET_PRODUCT_DETAIL, { variables: { id: productProps.id, channel: "default-channel" } })
 
   if (loading) return <View style={styles.loadingIndicator}>
 
