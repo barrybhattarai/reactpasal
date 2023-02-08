@@ -1,11 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { FC } from 'react';
 import { FlatList, Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Foundation';
 
 export const ProductItem: FC<any> = ({ product, navigation }): JSX.Element => {
   return (
 
     <View style={styles.productItemContainer}>
+      {product.pricing.onSale && <Icon style={styles.saleIcon} name='burst-sale' size={30} color={"red"} />}
       <Image
         style={styles.productImage}
         source={{ uri: product.thumbnail.url }}
@@ -63,6 +65,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: 'bold',
   },
+  saleIcon: {
+    position: 'absolute',
+    right: 20,
+    top: 10
+  }
 });
 
 const PRODUCT_QUERY = gql`
@@ -76,6 +83,7 @@ const PRODUCT_QUERY = gql`
             url
           }
           pricing {
+            onSale
             priceRange {
               start {
                 gross {
