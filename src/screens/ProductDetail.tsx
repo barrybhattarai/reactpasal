@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-const ProductDetail = () => {
-  return <View style={styles.productDetailContainer} />;
-};
+const ProductDetail = ({ route }: any) => {
+  return (<View style={styles.productDetailContainer} >
+    <Text>{route.params.id}</Text>
+  </View>);
+}
 
 const styles = StyleSheet.create({
   productDetailContainer: {

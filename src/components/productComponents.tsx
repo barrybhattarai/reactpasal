@@ -1,28 +1,32 @@
-import {gql, useQuery} from '@apollo/client';
-import React, {FC} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import { gql, useQuery } from '@apollo/client';
+import React, { FC } from 'react';
+import { FlatList, Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
 
-export const ProductItem: FC<any> = ({product}): JSX.Element => {
+export const ProductItem: FC<any> = ({ product, navigation }): JSX.Element => {
   return (
-    <View style={styles.productItemContainer}>
-      <Image
-        style={styles.productImage}
-        source={{uri: product.thumbnail.url}}
-      />
-      <View>
-        <Text>{product.name}</Text>
-        <Text style={styles.pricingText}>
-          {' '}
-          ${product.pricing.priceRange.start.gross.amount}
-        </Text>
+    <TouchableOpacity onPress={()=>{
+      navigation.navigate("ProductDetail", {id: product.id})
+    }}>
+      <View style={styles.productItemContainer}>
+        <Image
+          style={styles.productImage}
+          source={{ uri: product.thumbnail.url }}
+        />
+        <View>
+          <Text>{product.name}</Text>
+          <Text style={styles.pricingText}>
+            {' '}
+            ${product.pricing.priceRange.start.gross.amount}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-export default function ProductList() {
-  const {loading, data, error} = useQuery(PRODUCT_QUERY, {
-    variables: {channel: 'default-channel', first: 50},
+export default function ProductList({ navigation }: any) {
+  const { loading, data, error } = useQuery(PRODUCT_QUERY, {
+    variables: { channel: 'default-channel', first: 10 },
   });
   if (loading) {
     return <Text>Loading...</Text>;
@@ -33,8 +37,8 @@ export default function ProductList() {
   return (
     <FlatList
       data={data.products.edges}
-      renderItem={({item}) => {
-        return <ProductItem key={item.node.id} product={item.node} />;
+      renderItem={({ item }) => {
+        return <ProductItem navigation={navigation} key={item.node.id} product={item.node} />;
       }}
     />
   );
